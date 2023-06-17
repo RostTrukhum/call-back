@@ -1,29 +1,22 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import callBackRouter from './routes/call-back.js'
+import express from 'express'
 
-const PORT = process.env.PORT ?? 3000;
+const app = express()
 
-const app = express();
-app.use(
-  cors({
-    origin: '*',
-  }),
-);
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(callBackRouter);
+app.get('/', (req, res) => {
+	res.send('Express JS on Vercel')
+})
 
-const start = async () => {
-  try {
-    app.listen(PORT, () => {
-      console.log(`server has been started at ${PORT}`);
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
+app.get('/ping', (req, res) => {
+	res.send('pong 🏓')
+})
 
-start();
+const port = process.env.PORT || 8080
+
+app.listen(port, (err, res) => {
+	if (err) {
+		console.log(err)
+		return res.status(500).send(err.message)
+	} else {
+		console.log('[INFO] Server Running on port:', port)
+	}
+})

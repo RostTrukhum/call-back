@@ -11,6 +11,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+router.get('/', async (req, res) => {
+	try {  
+	  res.status(200).send('Success deployed');
+	} catch (e) {
+	  res.status(400).send(e);
+	}
+  });
+
 router.post('/sendCallBack', async (req, res) => {
 	try {
 	  transporter.sendMail({
